@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Manages activities",
     "keywords": ["activitiy", "history"],
-    "homepage": "https://github.com/Kitpages/ActivityBundle",
+    "homepage": "https://github.com/Kitpages/KitpagesActivityBundle",
     "license": "MIT",
     "authors": [
         {
