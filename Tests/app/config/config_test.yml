@@ -1,0 +1,17 @@
+framework:
+    secret: "test"
+    test: ~
+
+doctrine:
+    dbal:
+        driver:   "pdo_sqlite"
+        path:     /tmp/sqlite-test.db
+        charset:  UTF8
+    orm:
+        auto_mapping: true
+
+stof_doctrine_extensions:
+    default_locale: en
+    orm:
+        default:
+            timestampable: true
