@@ -29,7 +29,7 @@ class ActivityManager
     public function createActivity (
         $category,
         $title,
-        $message,
+        $message = null,
         $linkUrl = null
     )
     {

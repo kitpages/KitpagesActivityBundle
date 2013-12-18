@@ -12,7 +12,7 @@
 
         <field name="category" type="string" column="category"/>
         <field name="title" type="string" column="title"/>
-        <field name="message" type="string" column="message"/>
+        <field name="message" type="string" column="message" nullable="true"/>
         <field name="linkUrl" type="string" column="link_url" nullable="true"/>
 
         <field name="createdAt" type="datetime" column="created_at" nullable="true">
