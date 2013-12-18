@@ -2,9 +2,9 @@
     "name": "kitpages/activity-bundle",
     "type": "symfony-bundle",
     "description": "Manages activities",
-    "keywords": ["activitiy", "notification", "history"],
+    "keywords": ["activitiy", "history"],
     "homepage": "https://github.com/Kitpages/ActivityBundle",
-    "license": "BSD",
+    "license": "MIT",
     "authors": [
         {
             "name": "Philippe Le Van",

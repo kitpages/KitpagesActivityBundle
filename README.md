@@ -11,10 +11,14 @@ Features :
 Create an activity
 ------------------
 
+in a controller
+
 ```php
-
+$this->get("kitpages_activity.activity_manager")->createActivity(
+    "my_category",
+    "my title",
+    "my message content",
+    "my url" //optionnal
+);
 ```
-
-Calculate impacted user list according to an activity
------------------------------------------------------
 
