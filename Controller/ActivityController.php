@@ -33,19 +33,24 @@ class ActivityController extends Controller
             ->addField(new Field(
                 'item.title',
                 array(
-                    'label' => 'Title'
+                    'label' => 'Title',
+                    'sortable' => true,
+                    'filterable' => true,
                 )
             ))
             ->addField(new Field(
                 'item.category',
                 array(
-                    'label' => 'Catégorie'
+                    'label' => 'Catégorie',
+                    'sortable' => true,
+                    'filterable' => true,
                 )
             ))
             ->addField(new Field(
                 'item.createdAt',
                 array(
-                    'label' => 'Date'
+                    'label' => 'Date',
+                    'sortable' => true
                 )
             ))
         ;
