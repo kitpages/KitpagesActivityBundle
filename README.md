@@ -40,7 +40,7 @@ note : category is not mandatory in filter list.
 
 ## Installation
 
-Using [Composer](http://getcomposer.org/), just `$ composer require kitpages/semaphore-bundle` package or:
+Using [Composer](http://getcomposer.org/), just `$ composer require kitpages/activity-bundle` package or:
 
 ```javascript
 {
