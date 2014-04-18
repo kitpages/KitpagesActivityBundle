@@ -2,7 +2,6 @@
 
 namespace Kitpages\ActivityBundle;
 
-use Kitpages\ActivityBundle\DependencyInjection\Compiler\ObjectAdapterCompilerPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

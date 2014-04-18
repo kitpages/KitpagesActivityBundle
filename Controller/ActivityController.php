@@ -25,7 +25,6 @@ class ActivityController extends Controller
         }
         $qb->add('orderBy', 'item.createdAt DESC');
 
-        $self = $this;
         $gridConfig = new GridConfig();
         $gridConfig
             ->setName("activity_grid")
