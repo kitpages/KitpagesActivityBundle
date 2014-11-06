@@ -16,7 +16,7 @@
         "symfony/framework-bundle": "~2.3",
         "doctrine/orm": "~2.2",
         "doctrine/doctrine-bundle": "~1.2",
-        "kitpages/data-grid-bundle": "~1.10",
+        "kitpages/data-grid-bundle": "~2.0",
         "stof/doctrine-extensions-bundle" : "1.1.*",
         "symfony/event-dispatcher": "~2.3"
     },

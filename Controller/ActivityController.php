@@ -2,8 +2,8 @@
 
 namespace Kitpages\ActivityBundle\Controller;
 
-use Kitpages\DataGridBundle\Model\Field;
-use Kitpages\DataGridBundle\Model\GridConfig;
+use Kitpages\DataGridBundle\Grid\Field;
+use Kitpages\DataGridBundle\Grid\GridConfig;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,7 +18,6 @@ class ActivityController extends Controller
         // create query builder
         $repository = $this->getDoctrine()->getRepository('\Kitpages\ActivityBundle\Entity\Activity');
         $qb = $repository->createQueryBuilder('item');
-        $qb->where("1=1");
         foreach( $filterList as $field => $val) {
             $qb->andWhere('item.'.$field.' = :'.$field);
             $qb->setParameter($field, $val);
@@ -26,6 +25,7 @@ class ActivityController extends Controller
         $qb->add('orderBy', 'item.createdAt DESC');
 
         $gridConfig = new GridConfig();
+        $gridConfig->setQueryBuilder($qb);
         $gridConfig
             ->setName("activity_grid")
             ->setCountFieldName('item.id')
@@ -55,7 +55,7 @@ class ActivityController extends Controller
         ;
 
         $gridManager = $this->get('kitpages_data_grid.manager');
-        $grid = $gridManager->getGrid($qb, $gridConfig, $request);
+        $grid = $gridManager->getGrid($gridConfig, $request);
 
         return $this->render('KitpagesActivityBundle:Activity:list.html.twig', array('grid' => $grid));
     }
