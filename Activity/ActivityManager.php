@@ -55,14 +55,17 @@ class ActivityManager
         return $event->getActivity();
     }
 
-    public function getActivityList( $filterList = array(), $orderByField = "createdAt", $orderByOrder = "DESC" )
+    public function getActivityListQueryBuilder( $filterList = array(), $orderBy = "createdAt DESC" )
     {
         $qb = $this->em->createQueryBuilder();
         $qb ->select('item')
             ->from('\Kitpages\ActivityBundle\Entity\Activity', 'item')
-            ;
+        ;
 
         // manager order
+        preg_match('/^\s*(\w+)\s+(\w+)\s*$/', $orderBy, $matches);
+        $orderByField = $matches[1];
+        $orderByOrder = $matches[2];
         $qb->orderBy( 'item.'.$orderByField, $orderByOrder );
 
         // manager filters
@@ -90,7 +93,12 @@ class ActivityManager
 
             $qb->setParameter($field, $val);
         }
+        return $qb;
+    }
 
+    public function getActivityList( $filterList = array(), $orderBy = "createdAt DESC" )
+    {
+        $qb = $this->getActivityListQueryBuilder($filterList, $orderBy);
         $query = $qb->getQuery();
         $activityList = $query->getResult();
         return $activityList;

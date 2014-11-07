@@ -84,7 +84,7 @@ class ActivityManagerTest extends BundleOrmTestCase
             array(
                 "reference" => "*user.12"
             ),
-            "createdAt", "ASC"
+            "createdAt ASC"
         );
         $this->assertEquals(2, count($activityList));
         $this->assertEquals("title2", $activityList[1]->getTitle());

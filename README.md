@@ -24,12 +24,6 @@ $this->get("kitpages_activity.activity_manager")->createActivity(
 );
 ```
 
-### Best practices
-
-* the category field is used for filtering activities by category
-* the reference field is used to represent the object linked to this activity (if there is an object)
-* The data field is used to add every information you would need linked to this activity
-
 ### Display a list of activities in a twig template
 
 ```twig
@@ -38,6 +32,27 @@ $this->get("kitpages_activity.activity_manager")->createActivity(
     'request': app.request
 } ) ) }}
 ```
+
+### Versions
+
+2013-12-18 : v1.0.0
+
+* first version
+
+2014-11-07 : v2.0.0
+
+* upgrade to KitpagesDataGrid 2.x
+* filters on activities
+* added reference, and custom data
+* ordering of activity list
+* better unit tests
+
+### Best practices
+
+* the category field is used for filtering activities by category
+* the reference field is used to represent the object linked to this activity (if there is an object)
+* The data field is used to add every information you would need linked to this activity
+
 
 note : category is not mandatory in filter list.
 
@@ -83,8 +98,7 @@ By default activity list is ordered by createdAt DESC. You can specify the order
 $activityManager = $this->get("kitpages_activity.activity_manager");
 $activityList = $activityManager->getActivityList(
     array("category" => "payment.*"),
-    "id", // sort field : id, reference, category, createdAt
-    "DESC" // order
+    "id DESC", // sort field : id, reference, category, createdAt
 );
 ```
 
