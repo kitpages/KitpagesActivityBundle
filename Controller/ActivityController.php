@@ -10,7 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 class ActivityController extends Controller
 {
     /**
+     * @param Request $request
      * @param array $filterList
+     * @param string $orderBy
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction(Request $request, $filterList = array(), $orderBy = 'createdAt DESC')
