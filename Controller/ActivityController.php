@@ -13,16 +13,9 @@ class ActivityController extends Controller
      * @param array $filterList
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction(Request $request, $filterList = array())
+    public function listAction(Request $request, $filterList = array(), $orderBy = 'createdAt DESC')
     {
-        // create query builder
-        $repository = $this->getDoctrine()->getRepository('\Kitpages\ActivityBundle\Entity\Activity');
-        $qb = $repository->createQueryBuilder('item');
-        foreach( $filterList as $field => $val) {
-            $qb->andWhere('item.'.$field.' = :'.$field);
-            $qb->setParameter($field, $val);
-        }
-        $qb->add('orderBy', 'item.createdAt DESC');
+        $qb = $this->get("kitpages_activity.activity_manager")->getActivityListQueryBuilder($filterList, $orderBy);
 
         $gridConfig = new GridConfig();
         $gridConfig->setQueryBuilder($qb);
