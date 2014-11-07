@@ -28,8 +28,9 @@ $this->get("kitpages_activity.activity_manager")->createActivity(
 
 ```twig
 {{ render(controller('KitpagesActivityBundle:Activity:list', {
-    'filterList': { "category": "my_category" },
-    'request': app.request
+    'request': app.request, // mandatory
+    'filterList': { "category": "my_category" }, // optionnal
+    'orderBy': 'id ASC' // optionnal, default to "createAt DESC"
 } ) ) }}
 ```
 
@@ -50,9 +51,10 @@ $this->get("kitpages_activity.activity_manager")->createActivity(
 ### Best practices
 
 * the category field is used for filtering activities by category
-* the reference field is used to represent the object linked to this activity (if there is an object)
+* the reference field is used to represent the object linked to this activity (if there is an object). I imagine
+references like "company.15.user.23". We can then retrieve activities for the company or this user using wildcard in
+filters.
 * The data field is used to add every information you would need linked to this activity
-
 
 note : category is not mandatory in filter list.
 
@@ -79,7 +81,7 @@ $activityList = $activityManager->getActivityList( array(
 ```php
 $activityManager = $this->get("kitpages_activity.activity_manager");
 $activityList = $activityManager->getActivityList( array(
-    "category" => "payment.*"
+    "category" => "payment*"
 ) );
 ```
 
