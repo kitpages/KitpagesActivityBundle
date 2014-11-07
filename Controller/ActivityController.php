@@ -47,7 +47,7 @@ class ActivityController extends Controller
             ))
         ;
 
-        $gridManager = $this->get('kitpages_data_grid.manager');
+        $gridManager = $this->get('kitpages_data_grid.grid_manager');
         $grid = $gridManager->getGrid($gridConfig, $request);
 
         return $this->render('KitpagesActivityBundle:Activity:list.html.twig', array('grid' => $grid));
