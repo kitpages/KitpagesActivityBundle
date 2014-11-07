@@ -75,8 +75,17 @@ You can filter the fields category, title, message, url or reference.
 You can use "*" at the beginning or the end of your filter as a wildcard (everything
 with category beginning by "xxx" or ending by "xxx").
 
-```php
+#### ordering results
 
+By default activity list is ordered by createdAt DESC. You can specify the order :
+
+```php
+$activityManager = $this->get("kitpages_activity.activity_manager");
+$activityList = $activityManager->getActivityList(
+    array("category" => "payment.*"),
+    "id", // sort field : id, reference, category, createdAt
+    "DESC" // order
+);
 ```
 
 ## Features :
