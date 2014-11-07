@@ -47,9 +47,9 @@ class ActivityManagerTest extends BundleOrmTestCase
     {
 
         $this->manager->createActivity("phpunit", 'title1', 'mon message', null, "user.12", array("cnt" => 12, "foo" => "bar"));
-        sleep(2);
+        sleep(1);
         $this->manager->createActivity("test.cat2", 'title2', 'mon message', null, "locality.23.user.12");
-        sleep(2);
+        sleep(1);
         $this->manager->createActivity("test.cat1", 'gloubi.title', 'mon message');
 
         $activityList = $this->manager->getActivityList();
