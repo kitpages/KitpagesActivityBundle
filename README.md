@@ -11,7 +11,7 @@ Mostly used for rapid prototyping.
 
 ## Quick Start
 
-### Create an activity
+Create an activity
 
 ```php
 $this->get("kitpages_activity.activity_manager")->createActivity(
@@ -24,50 +24,16 @@ $this->get("kitpages_activity.activity_manager")->createActivity(
 );
 ```
 
-### Display a list of activities in a twig template
+Display a list of activities in a twig template
 
 ```twig
 {{ render(controller('KitpagesActivityBundle:Activity:list', {
     'request': app.request, // mandatory
     'filterList': { "category": "my_category" }, // optionnal
-    'orderBy': 'id ASC' // optionnal, default to "createAt DESC"
 } ) ) }}
 ```
 
-### Versions
-
-2013-12-18 : v1.0.0
-
-* first version
-
-2014-11-07 : v2.0.0
-
-* upgrade to KitpagesDataGrid 2.x
-* filters on activities
-* added reference, and custom data
-* ordering of activity list
-* better unit tests
-
-### Best practices
-
-* the category field is used for filtering activities by category
-* the reference field is used to represent the object linked to this activity (if there is an object). I imagine
-references like "company.15.user.23". We can then retrieve activities for the company or this user using wildcard in
-filters.
-* The data field is used to add every information you would need linked to this activity
-
-note : category is not mandatory in filter list.
-
-### get activity list in PHP
-
-#### get all activities
-
-```php
-$activityManager = $this->get("kitpages_activity.activity_manager");
-$activityList = $activityManager->getActivityList();
-```
-
-#### get activities for a given category
+get activities in PHP
 
 ```php
 $activityManager = $this->get("kitpages_activity.activity_manager");
@@ -76,38 +42,14 @@ $activityList = $activityManager->getActivityList( array(
 ) );
 ```
 
-#### get activities for all categories beginning by "payments."
-
-```php
-$activityManager = $this->get("kitpages_activity.activity_manager");
-$activityList = $activityManager->getActivityList( array(
-    "category" => "payment*"
-) );
-```
-
-#### principle of filter
-
-You can filter the fields category, title, message, url or reference.
-
-You can use "*" at the beginning or the end of your filter as a wildcard (everything
-with category beginning by "xxx" or ending by "xxx").
-
-#### ordering results
-
-By default activity list is ordered by createdAt DESC. You can specify the order :
-
-```php
-$activityManager = $this->get("kitpages_activity.activity_manager");
-$activityList = $activityManager->getActivityList(
-    array("category" => "payment.*"),
-    "id DESC", // sort field : id, reference, category, createdAt
-);
-```
-
 ## Features :
 
 * record activities
-* display activities with a paginator and a full text filter
+* attach activities to an object using reference
+* attach activities to categories
+* easy to display activities with a paginator and a full text filter
+* filter activities by category, title, message, reference
+* you can sort activities
 
 ## Installation
 
@@ -134,3 +76,84 @@ Then add the bundle in AppKernel :
         );
     }
 ```
+
+## Display a list of activities in a twig template
+
+```twig
+{{ render(controller('KitpagesActivityBundle:Activity:list', {
+    'request': app.request, // mandatory
+    'filterList': { "category": "my_category" }, // optionnal
+    'orderBy': 'id ASC' // optionnal, default to "createdAt DESC"
+} ) ) }}
+```
+
+
+## get activity list in PHP
+
+### get all activities
+
+```php
+$activityManager = $this->get("kitpages_activity.activity_manager");
+$activityList = $activityManager->getActivityList();
+```
+
+### get activities for a given category
+
+```php
+$activityManager = $this->get("kitpages_activity.activity_manager");
+$activityList = $activityManager->getActivityList( array(
+    "category" => "my category"
+) );
+```
+
+### get activities for all categories beginning by "payments."
+
+```php
+$activityManager = $this->get("kitpages_activity.activity_manager");
+$activityList = $activityManager->getActivityList( array(
+    "category" => "payment*"
+) );
+```
+
+### principle of filter
+
+* You can filter the fields category, title, message, url or reference.
+* You can use "*" at the beginning or the end of your filter as a wildcard (everything
+with category beginning by "xxx" or ending by "xxx").
+* You can escape the wildcard by using '\*'
+
+### ordering results
+
+By default activity list is ordered by createdAt DESC. You can specify the order :
+
+```php
+$activityManager = $this->get("kitpages_activity.activity_manager");
+$activityList = $activityManager->getActivityList(
+    array("category" => "payment.*"),
+    "id DESC", // sort field : id, reference, category, createdAt
+);
+```
+
+## Best practices
+
+* the category field is used for filtering activities by category
+* the reference field is used to represent the object linked to this activity (if there is an object). I imagine
+references like "company.15.user.23". We can then retrieve activities for the company or this user using wildcard in
+filters.
+* The data field is used to add every information you would need linked to this activity
+
+note : category is not mandatory in filter list.
+
+### Versions
+
+2013-12-18 : v1.0.0
+
+* first version
+
+2014-11-07 : v2.0.0
+
+* upgrade to KitpagesDataGrid 2.x
+* filters on activities
+* added reference, and custom data
+* ordering of activity list
+* better unit tests
