@@ -42,4 +42,53 @@ class ActivityManagerTest extends BundleOrmTestCase
         $activityList = $this->manager->getActivityList();
         $this->assertEquals(2, count($activityList));
     }
+
+    public function testGetActivityListFiltered()
+    {
+
+        $this->manager->createActivity("phpunit", 'title1', 'mon message', null, "user.12", array("cnt" => 12, "foo" => "bar"));
+        sleep(2);
+        $this->manager->createActivity("test.cat2", 'title2', 'mon message', null, "locality.23.user.12");
+        sleep(2);
+        $this->manager->createActivity("test.cat1", 'gloubi.title', 'mon message');
+
+        $activityList = $this->manager->getActivityList();
+        $this->assertEquals(4, count($activityList));
+
+        $activityList = $this->manager->getActivityList(
+            array(
+                "category" => "test*"
+            )
+        );
+        $this->assertEquals(2, count($activityList));
+        $this->assertEquals("title2", $activityList[1]->getTitle());
+
+        $activityList = $this->manager->getActivityList(
+            array(
+                "reference" => "*user.12"
+            )
+        );
+        $this->assertEquals(2, count($activityList));
+        $this->assertEquals("title1", $activityList[1]->getTitle());
+
+        $activityList = $this->manager->getActivityList(
+            array(
+                "category" => "phpunit",
+                "reference" => "*user.12"
+            )
+        );
+        $this->assertEquals(1, count($activityList));
+        $this->assertEquals("title1", $activityList[0]->getTitle());
+
+        $activityList = $this->manager->getActivityList(
+            array(
+                "reference" => "*user.12"
+            ),
+            "createdAt", "ASC"
+        );
+        $this->assertEquals(2, count($activityList));
+        $this->assertEquals("title2", $activityList[1]->getTitle());
+
+    }
+
 }

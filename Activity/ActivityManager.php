@@ -30,7 +30,9 @@ class ActivityManager
         $category,
         $title,
         $message = null,
-        $linkUrl = null
+        $linkUrl = null,
+        $reference = null,
+        $data = array()
     )
     {
         $activity = new Activity();
@@ -38,6 +40,8 @@ class ActivityManager
         $activity->setMessage($message);
         $activity->setTitle($title);
         $activity->setLinkUrl($linkUrl);
+        $activity->setReference($reference);
+        $activity->setData($data);
         return $this->registerActivity($activity);
     }
 
@@ -51,16 +55,42 @@ class ActivityManager
         return $event->getActivity();
     }
 
-    public function getActivityList($filterList = array())
+    public function getActivityList( $filterList = array(), $orderByField = "createdAt", $orderByOrder = "DESC" )
     {
-        $repository = $this->em->getRepository('\Kitpages\ActivityBundle\Entity\Activity');
-        $qb = $repository->createQueryBuilder('item');
-        $qb->where("1=1");
+        $qb = $this->em->createQueryBuilder();
+        $qb ->select('item')
+            ->from('\Kitpages\ActivityBundle\Entity\Activity', 'item')
+            ;
+
+        // manager order
+        $qb->orderBy( 'item.'.$orderByField, $orderByOrder );
+
+        // manager filters
         foreach( $filterList as $field => $val) {
-            $qb->andWhere('item.'.$field.' = :'.$field);
+            // if val == "*", consider val as a wildcard => no filter
+            if ($val === '*') {
+                continue;
+            }
+            // if val ends by "*" and not escapted by '\*', wildcard in filter, then like
+            $isLike = false;
+            if ((substr($val, -1) === "*") && (substr($val, -2) !== '\\*')) {
+                $isLike = true;
+                $val = substr($val, 0, strlen($val) - 1) . '%';
+            }
+            if (substr($val, 0, 1) === "*") {
+                $isLike = true;
+                $val = '%' . substr($val, 1);
+            }
+
+            if ($isLike === true) {
+                $qb->andWhere('item.' . $field . ' like :' . $field);
+            } else {
+                $qb->andWhere('item.' . $field . ' = :' . $field);
+            }
+
             $qb->setParameter($field, $val);
         }
-        $qb->add('orderBy', 'item.createdAt DESC');
+
         $query = $qb->getQuery();
         $activityList = $query->getResult();
         return $activityList;

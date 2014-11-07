@@ -9,9 +9,3 @@ doctrine:
         charset:  UTF8
     orm:
         auto_mapping: true
-
-stof_doctrine_extensions:
-    default_locale: en
-    orm:
-        default:
-            timestampable: true

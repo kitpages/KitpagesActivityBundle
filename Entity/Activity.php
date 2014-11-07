@@ -2,7 +2,6 @@
 
 namespace Kitpages\ActivityBundle\Entity;
 
-
 /**
  * Activity
  */
@@ -30,14 +29,28 @@ class Activity
     private $linkUrl;
 
     /**
-     * @var \DateTime
+     * used for identify object related to this activity
+     *
+     * @var string
      */
-    private $createdAt;
+    private $reference;
+
+    /**
+     * used for identify object related to this activity
+     *
+     * @var array
+     */
+    private $data;
 
     /**
      * @var \DateTime
      */
-    private $updatedAt;
+    private $createdAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * @param \DateTime $createdAt
@@ -120,22 +133,6 @@ class Activity
     }
 
     /**
-     * @param \DateTime $updatedAt
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
      * @param string $category
      */
     public function setCategory($category)
@@ -151,5 +148,36 @@ class Activity
         return $this->category;
     }
 
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param array $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
+     * @param string $reference
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+    }
 
 }

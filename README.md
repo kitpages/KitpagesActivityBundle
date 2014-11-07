@@ -18,9 +18,17 @@ $this->get("kitpages_activity.activity_manager")->createActivity(
     "my_category",
     "my title",
     "my message content",
-    "my url" //optionnal
+    "my url", //optionnal
+    "my reference", //optionnal
+    array("key1" => "val1", ), //optionnal
 );
 ```
+
+### Best practices
+
+* the category field is used for filtering activities by category
+* the reference field is used to represent the object linked to this activity (if there is an object)
+* The data field is used to add every information you would need linked to this activity
 
 ### Display a list of activities in a twig template
 
@@ -32,6 +40,44 @@ $this->get("kitpages_activity.activity_manager")->createActivity(
 ```
 
 note : category is not mandatory in filter list.
+
+### get activity list in PHP
+
+#### get all activities
+
+```php
+$activityManager = $this->get("kitpages_activity.activity_manager");
+$activityList = $activityManager->getActivityList();
+```
+
+#### get activities for a given category
+
+```php
+$activityManager = $this->get("kitpages_activity.activity_manager");
+$activityList = $activityManager->getActivityList( array(
+    "category" => "my category"
+) );
+```
+
+#### get activities for all categories beginning by "payments."
+
+```php
+$activityManager = $this->get("kitpages_activity.activity_manager");
+$activityList = $activityManager->getActivityList( array(
+    "category" => "payment.*"
+) );
+```
+
+#### principle of filter
+
+You can filter the fields category, title, message, url or reference.
+
+You can use "*" at the beginning or the end of your filter as a wildcard (everything
+with category beginning by "xxx" or ending by "xxx").
+
+```php
+
+```
 
 ## Features :
 
