@@ -14,7 +14,7 @@
     "require": {
         "php": ">=7.1",
         "symfony/framework-bundle": "~3.4.0",
-        "doctrine/orm": "~2.5.0",
+        "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "~1.2",
         "kitpages/data-grid-bundle": "~3.0",
         "symfony/event-dispatcher": "~3.4.0"
